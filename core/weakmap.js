@@ -1,14 +1,17 @@
 // weabmap.js
 
+const delegateProxyCreater = require('./proxy.js');
 /**
- * weakMapCreator WeakMap生成器
+ * weakMapBinder WeakMap生成器
  * @param  {HTMLElement}   htmlElement DOM元素
  * @param  {Function} callback    事件监听回调
  * @return {WeakMap}               WeakMap实例
  */
 
-function weakMapCreator (htmlElement, callback) {
+function weakMapBinder (htmlElement, callback) {
     let weakMap = new WeakMap()
     weakMap.set(htmlElement, callback)
-    return weakMap
+    htmlElement.addEventListener(event, weakMap.get(htmlElement))
 }
+
+module.exports = weakMapBinder;
