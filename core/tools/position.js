@@ -5,7 +5,10 @@ class Position {
     constructor(){
         this.lastClientObjs = [];
     }
-    initLastClientObjs(thisClientObjs) {
+    initLastClientObjs(lastClientObjs) {
+        this.lastClientObjs = Object.assign([], lastClientObjs);
+    }
+    getDisplacement(thisClientObjs) {
         thisClientObjs = Array.from(thisClientObjs);
         return thisClientObjs.map((item, index) => {
             const {x, y} = this.lastClientObjs[index];
