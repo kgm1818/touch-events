@@ -10,12 +10,12 @@
     if(!delegateTarget){
         return null;
     }
-    const delegateTarget = new Set(document.querySelectorAll(delegateTarget))
+    const delegateTargets = new Set(document.querySelectorAll(delegateTarget));
     while(target != bindTarget){
-        if(delegateTarget.has(target)){
+        if(delegateTargets.has(target)){
             return target;
         }else{
-            target = target;
+            target = target.parentNode;
         }
     }
     return null;
@@ -25,19 +25,21 @@
  * delegateProxyCreator 事件代理Proxy生成器
  * @param  {String(Selector) | HTMLElement} bindTarget     事件绑定元素
  * @param  {String(Selector)} delegateTarget 事件代理元素
- * @param  {Object} target            原生事件对象
- * @param  {Function} callback       proxy拦截回调
+ * @param  {Object} target             原生事件对象
+ * @param  {Function} callback         proxy拦截回调
  * @return {Function}                  过Proxy的callback
  */
 
- function delegateProxyCreator(){
+ function delegateProxyCreator(bindTarget, delegateTarget, callback){
     const handler = {
         apply(callback, ctx, args){
-            const target = _delegateEvent(bindTarget, delegateTarget, e.target);
+            const target = _delegateEvent(bindTarget, delegateTarget, args[0].target);
             if((delegateTarget && target) || !delegateTarget){
-                return Reflect.apply(...arguments)
+                return Reflect.apply(...arguments) //拿到当前上下文内的所有参数
             }
         }
     }
     return new Proxy(callback, handler)
  }
+
+ module.exports = delegateProxyCreator;

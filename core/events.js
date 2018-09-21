@@ -39,11 +39,11 @@ function getVectorLength(x1, y1, x2, y2){
                         })
                     },
                     touchend: e => {
-                        if(timer.timer){
+                        if(timer.timer){ 
                             const changeObj = position.getDisplacement(e.changedTouches[0])
                             const x = Math.abs(changeObj.x);
                             const y = Math.abs(changeObj.y);
-                            if(x <= 50 $$ y <= 50) {
+                            if(x <= 50 && y <= 50) {
                                 e.preventDefault();
                                 callback(e);
                             }
@@ -106,8 +106,10 @@ function getVectorLength(x1, y1, x2, y2){
                             }
                         }else{
                             position.initLastClientObjs([
-                                x: e.changedTouches[0].clientX,
-                                y: e.changedTouches[0].clientY
+                                {
+                                    x: e.changedTouches[0].clientX,
+                                    y: e.changedTouches[0].clientY
+                                }
                             ]);
                             timer.timeoutCreator(500, () => {
                                 position.initLastClientObjs(null);
@@ -136,7 +138,6 @@ function getVectorLength(x1, y1, x2, y2){
                       e.displacement = position.getDisplacement(e.changedTouches)[0]
                       callback(e)
                     }
-                  }
                 }
             }
         })

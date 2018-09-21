@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0">
+    <title>Demo</title>
+    <style type="text/css">
+        body,
+        ul {
+            margin: 0;
+            padding: 0;
+            background: #f5f5f5;
+            overflow: hidden;
+        }
+        ul li {
+            list-style: none;
+        }
+        .test-header {
+            position: absolute;
+            width: 100%;
+            top: 0;
+            height: 4rem;
+            padding: .5rem 0;
+            box-sizing: border-box;
+            text-align: center;
+            font-weight: bold;
+            font-size: 2rem;
+            background: #fff;
+            box-shadow: 0 1px 2px hsla(0, 0%, 59%, .3);
+        }
+        .test-list {
+            padding: 0;
+            margin: 0;
+            margin-top: 4rem;
+            max-height: calc(100vh - 3rem);
+            overflow: hidden;
+            overflow-y: scroll;
+        }
+        .test-stage {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 20rem;
+        }
+        .test-stage:nth-child(even) {
+            background: #fff;
+        }
+        .test-title {
+            margin-bottom: 2rem;
+            font-size: 2rem;
+            font-weight: bold;
+        }
+        .test-item {
+            width: 10rem;
+            height: 10rem;
+            background: #188eee;
+        }
+        .grayscale {
+            filter: grayscale(.5);
+        }
+        .scale-2 {
+            transform: matrix(1.5, 0, 0, 1.5, 0, 0) !important;
+            opacity: .7;
+        }
+        .dbtap {
+            transform: matrix(1, 0, 0, 1, 0, 0);
+            transition: all .3s;
+        }
+        .swipe {
+            transition: all .3s;
+        }
+        .drag {
+            transition: transform .1s;
+        }
+        .rotate {
+            transition: transform 0.1s ease-out;
+        }
+        </style>
+</head>
+    <body>
+        <ul class="test-list">
+            <li class="test-stage">
+                <span class="test-title">tap</span>
+                <div class="test-item tap"></div>
+            </li>
+            <li class="test-stage">
+                <span class="test-title">longtap</span>
+                <div class="test-item longtap"></div>
+            </li>
+            <li class="test-stage">
+                <span class="test-title">dbtap</span>
+                <div class="test-item dbtap"></div>
+            </li>
+            <li class="test-stage">
+                <span class="test-title">swipe</span>
+                <div class="test-item swipe"></div>
+            </li>
+            <li class="test-stage">
+                <span class="test-title">drag</span>
+                <div class="test-item drag"></div>
+            </li>
+            <li class="test-stage">
+                <span class="test-title">scale</span>
+                <div class="test-item scale"></div>
+            </li>
+            <li class="test-stage">
+                <span class="test-title">rotate</span>
+                <div class="test-item rotate"></div>
+            </li>
+        </ul>
+        <script type="text/javascript" src="./dist/event.js"></script>
+        <script type="text/javascript">
+            var tapContainer = document.querySelector('.tap')
+            var longtapContainer = document.querySelector('.longtap')
+            var dbtapContainer = document.querySelector('.dbtap')
+            var swipeContainer = document.querySelector('.swipe')
+            var dragContainer = document.querySelector('.drag')
+            var scaleContainer = document.querySelector('.scale')
+            var rotateContainer = document.querySelector('.rotate')
+            mtEvents(tapContainer, 'tap', function (){
+               tapContainer.classList.toggle('grayscale')
+            })
+            mtEvents(longtapContainer, 'longtap', e => longtapContainer.classList.toggle('grayscale'))
+    mtEvents(dbtapContainer, 'dbtap', e => dbtapContainer.classList.toggle('scale-2'))
+    mtEvents(swipeContainer, 'swipe', e => swipeContainer.style.transform = `matrix(1, 0, 0, 1, ${e.displacement.x}, ${e.displacement.y})`)
+    var dragDisX = 0
+    var dragDisY = 0
+    mtEvents(dragContainer, 'drag', e => {
+        dragContainer.style.transform = `matrix(1, 0, 0, 1, ${dragDisX += e.displacement.x}, ${dragDisY += e.displacement.y})`
+    })
+        </script>
+    </body>
+</html>

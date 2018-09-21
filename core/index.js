@@ -114,10 +114,10 @@ class MTEvents {
      */
     _checkBindTargetInput (bindTarget) {
         if (typeof bindTarget === 'string') {
-        bindTarget = document.querySelector(bindTarget)
+            bindTarget = document.querySelector(bindTarget)
         if (!bindTarget) {
             throw new Error(
-            'None of DOM had been choisen, Please input a correct selector or a HTMLElement'
+                'None of DOM had been choisen, Please input a correct selector or a HTMLElement'
             )
         }
         }
