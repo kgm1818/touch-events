@@ -110,26 +110,9 @@
                 <div class="test-item rotate"></div>
             </li>
         </ul>
-        <script type="text/javascript" src="./dist/event.js"></script>
+        <script type="text/javascript" src="./dist/main.bundle.js"></script>
         <script type="text/javascript">
-            var tapContainer = document.querySelector('.tap')
-            var longtapContainer = document.querySelector('.longtap')
-            var dbtapContainer = document.querySelector('.dbtap')
-            var swipeContainer = document.querySelector('.swipe')
-            var dragContainer = document.querySelector('.drag')
-            var scaleContainer = document.querySelector('.scale')
-            var rotateContainer = document.querySelector('.rotate')
-            mtEvents(tapContainer, 'tap', function (){
-               tapContainer.classList.toggle('grayscale')
-            })
-            mtEvents(longtapContainer, 'longtap', e => longtapContainer.classList.toggle('grayscale'))
-    mtEvents(dbtapContainer, 'dbtap', e => dbtapContainer.classList.toggle('scale-2'))
-    mtEvents(swipeContainer, 'swipe', e => swipeContainer.style.transform = `matrix(1, 0, 0, 1, ${e.displacement.x}, ${e.displacement.y})`)
-    var dragDisX = 0
-    var dragDisY = 0
-    mtEvents(dragContainer, 'drag', e => {
-        dragContainer.style.transform = `matrix(1, 0, 0, 1, ${dragDisX += e.displacement.x}, ${dragDisY += e.displacement.y})`
-    })
+     
         </script>
     </body>
 </html>

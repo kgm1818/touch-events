@@ -1,10 +1,14 @@
 const webpack = require('webpack');
 const OpenBrowserWebpackPlugin = require('open-browser-webpack-plugin')
 module.exports = {
-    entry: './core/index.js',
+    mode: "none",
+    entry: {
+        event: './core/index.js',
+        main: './main.js'
+    },
     output: {
         path: __dirname + '/dist',
-        filename: "event.js"
+        filename: "[name].bundle.js"
     },
     module: {
         rules: [
@@ -25,7 +29,7 @@ module.exports = {
     },
     plugins: [
         new OpenBrowserWebpackPlugin({ // 打开浏览器
-            url: 'http://localhost:8080'
+            url: 'http://localhost:3000'
         })
     ]
 }
